@@ -1,20 +1,14 @@
 #! /usr/bin/python
 
-import plotly
+import plotly.plotly as py
+from plotly.graph_objs import *
 
 #username = "rpural"
 #api_key = "7abemi2v86"
 
-credentials = open( "plotly.credentials", "r" )
-( username, api_key ) = credentials.readlines()
-username = username[0:-1]
-api_key  = api_key[0:-1]
-credentials.close()
+#py = plotly.plotly(username=username, key=api_key)
 
-py = plotly.plotly( username=username, key=api_key )
-
-# Read one of the temp logs, break into two arrays
-def extract( filename, timestamp, temp ):
+def extract(filename, timestamp, temp):
   data = open( filename, 'r' )
 
   for line in data:
@@ -75,9 +69,8 @@ trace4 = { 'x': r4timestamp,
 	   'type': 'scatter',
 	   'mode': 'lines' }
 
-response = py.plot( [ trace1, trace2, trace3, trace4 ], 
-		    layout=layout, filename='uDooTemp', fileopt='overwrite' )
-
-filename = response[ 'filename' ]
-url = response[ 'url' ]
-print filename, " - ", url
+response = py.plot([trace1, trace2, trace3, trace4], layout=layout, filename='uDooTemp', fileopt='overwrite')
+# filename = response['filename']
+#url = response['url']
+#print filename, " - ", url
+print response
